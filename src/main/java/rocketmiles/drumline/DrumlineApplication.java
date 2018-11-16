@@ -3,14 +3,18 @@ package rocketmiles.drumline;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.scheduling.annotation.EnableAsync;
-import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-@EnableAutoConfiguration
-@EnableAsync
-@EnableScheduling
-public class DrumlineApplication {
+public class DrumlineApplication extends SpringBootServletInitializer {
+
+	@Override
+	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+		return application.sources(DrumlineApplication.class);
+	}
+
+
 	public static void main(String[] args) {
 		SpringApplication.run(DrumlineApplication.class, args);
 	}

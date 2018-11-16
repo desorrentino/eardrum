@@ -28,7 +28,17 @@ repositories {
 
 
 dependencies {
-	implementation('org.springframework.boot:spring-boot-starter')
+	implementation('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+	compile("org.springframework.boot:spring-boot-devtools")
+	compile("org.apache.tomcat.embed:tomcat-embed-jasper")
+
+	compile("javax.servlet:jstl")
+
+	compile 'org.eclipse.jdt.core.compiler:ecj:4.6.1'
+	compile 'org.webjars:bootstrap:3.3.7'
+
+	//implementation('org.springframework.boot:spring-boot-starter')
 	compile group: 'javax.media', name: 'jmf', version: '2.1.1e'
 	compile group: 'com.google.guava', name: 'guava', version: '27.0-jre'
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.8.1'

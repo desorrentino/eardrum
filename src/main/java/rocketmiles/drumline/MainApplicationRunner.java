@@ -1,22 +1,13 @@
 package rocketmiles.drumline;
 
-import java.io.File;
-
-import javax.sound.midi.MidiSystem;
-import javax.sound.midi.Sequence;
-import javax.sound.midi.Track;
-
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
-@Component
 public class MainApplicationRunner implements ApplicationRunner {
 
 	private final MessageDecoder messageDecoder;
 	private final MidiDrumTrackDiff midiDrumTrackDiff;
 	private final MidiPlayer midiPlayer;
-
 
 	public MainApplicationRunner(MessageDecoder messageDecoder, MidiDrumTrackDiff midiDrumTrackDiff, MidiPlayer midiPlayer) {
 		super();
@@ -27,14 +18,14 @@ public class MainApplicationRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {		
-		String fileName = "sample1.mid"; //args.getOptionValues("file").get(0);
-		File file = new File(fileName);
-		Sequence sequence = MidiSystem.getSequence(file);		
-		Metronome m = new Metronome(sequence);
-		midiPlayer.prepare(file);
-		m.startWithSequence(sequence, 4);			
-		midiPlayer.play();
-		
+//		String fileName = "sample1.mid"; //args.getOptionValues("file").get(0);
+//		File file = new File(fileName);
+//		Sequence sequence = MidiSystem.getSequence(file);
+//		Metronome m = new Metronome(sequence);
+//		midiPlayer.prepare(file);
+//		m.startWithSequence(sequence, 4);
+//		midiPlayer.play();
+
 //		String file1 = "sample1.mid";
 //		String file2 = "sample2.mid";
 //		if (file1 != null && file2 != null) {
@@ -43,7 +34,7 @@ public class MainApplicationRunner implements ApplicationRunner {
 //			String diff = midiDrumTrackDiff.getDiff(track1, track2);
 //			return;
 //		}
-		
+
 	}
 
 }
