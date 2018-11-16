@@ -43,8 +43,7 @@ public class MainApplicationRunner implements ApplicationRunner {
 //			String diff = midiDrumTrackDiff.getDiff(track1, track2);
 //			return;
 //		}
-
-		m.startWithSequence(sequence, 4);
+		
 	}
 
 }
