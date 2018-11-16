@@ -29,7 +29,7 @@ repositories {
 
 dependencies {
 	implementation('org.springframework.boot:spring-boot-starter')
-	compile 'hackathon:jmf:2.1.1' 
+	compile group: 'javax.media', name: 'jmf', version: '2.1.1e'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }
 
