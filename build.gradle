@@ -31,6 +31,9 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter')
 	compile group: 'javax.media', name: 'jmf', version: '2.1.1e'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+	compile 'org.bitbucket.cowwoc:diff-match-patch:1.1'
+	compile 'com.github.wumpz:diffutils:3.0'
 }
 
 bootRun {
