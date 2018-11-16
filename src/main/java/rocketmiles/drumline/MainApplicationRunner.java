@@ -21,8 +21,7 @@ public class MainApplicationRunner implements ApplicationRunner {
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
-
-		String fileName = args.getOptionValues("file").get(0);
+		String fileName = "basic.mid"; //args.getOptionValues("file").get(0);
 		File file = new File(fileName);
 		midiPlayer.play(file);
 	}
