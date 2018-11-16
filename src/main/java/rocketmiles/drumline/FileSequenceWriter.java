@@ -10,11 +10,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Observable;
 
 /**
  * A {@link SequenceWriter} that writes sequences as midi files to the file system.
  */
-public class FileSequenceWriter implements SequenceWriter {
+public class FileSequenceWriter extends Observable implements SequenceWriter {
 
   private static final Logger logger = LoggerFactory.getLogger(FileSequenceWriter.class);
 
@@ -33,6 +34,8 @@ public class FileSequenceWriter implements SequenceWriter {
     String outputFilename = getMidiOutputFileName();
     MidiSystem.write(sequence, 1, new File(getMidiOutputFileName()));
     logger.info("Wrote " + outputFilename);
+    this.setChanged();
+    this.notifyObservers(outputFilename);
   }
 
   private String getMidiOutputFileName() {

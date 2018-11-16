@@ -66,45 +66,13 @@ public class MidiPlayer {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					// notify we are done
+					
 				}
 
 			}
 		});
 	}
 
-	private Instrument loadInstrument(String instrumentName) throws MidiUnavailableException, InvalidMidiDataException {
-		Synthesizer synth = MidiSystem.getSynthesizer();
-		synth.open();
-//		synth.getChannels()[0].programChange(2);
-		Instrument[] instruments = synth.getAvailableInstruments();
-		Instrument mainInst = null;
-		for (Instrument inst : instruments) {
-			String name = inst.getName();
-			if (name.equals(instrumentName)) {
-				mainInst = inst;
-				break;
-			}
-		}
-
-		MidiChannel mainChannel = synth.getChannels()[0];
-		int program = mainChannel.getProgram();
-
-		if (mainInst == null) {
-			throw new MidiUnavailableException("Could not find instrument: " + mainInst);
-		}
-
-		mainChannel.programChange(0);
-		program = mainChannel.getProgram();
-
-		boolean supported = synth.isSoundbankSupported(mainInst.getSoundbank());
-		if (!supported) {
-			throw new MidiUnavailableException("Instrument Soundbank not supported: " + mainInst);
-		}
-		boolean loaded = synth.loadInstrument(mainInst);
-		if (!loaded) {
-			throw new MidiUnavailableException("Could not load instrument: " + mainInst);
-		}
-
-		return mainInst;
-	}
 }

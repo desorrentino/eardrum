@@ -13,6 +13,7 @@ public class AppConfig {
 	private String dataDirectoryPath = "data";
 	private int stopRecordingDelayMillis = 5 * 1000;
 
+	
 	@Bean
 	public MidiPlayer midiPlayer(MidiArchiverService midiArchiveService) {
 		return new MidiPlayer(midiArchiveService);
@@ -27,8 +28,9 @@ public class AppConfig {
 	public Function<MidiDevice.Info, ArchivingReceiver> archivingReceiverFactory(
 			final MidiSystemService midiSystemService) {
 		return (MidiDevice.Info deviceInfo) -> {
-			SequenceWriter sequenceWriter = new FileSequenceWriter(
+			FileSequenceWriter sequenceWriter = new FileSequenceWriter(
 					dataDirectoryPath + File.separator + midiSystemService.getDeviceId(deviceInfo));
+			sequenceWriter.addObserver(new TestObserver());
 			return new ArchivingReceiver(deviceInfo, sequenceWriter, stopRecordingDelayMillis);
 		};
 	}
