@@ -6,12 +6,10 @@ import java.io.IOException;
 import javax.sound.midi.Instrument;
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiChannel;
-import javax.sound.midi.MidiMessage;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import javax.sound.midi.ShortMessage;
 import javax.sound.midi.Synthesizer;
 
 public class MidiPlayer {
@@ -21,26 +19,21 @@ public class MidiPlayer {
 	public MidiPlayer() {
 	}
 
-	public void play(File fileToPlay) {
-		try {
-			sequence = MidiSystem.getSequence(fileToPlay);
-			sequencer = MidiSystem.getSequencer(true);
-			sequencer.open();
-			sequencer.setSequence(sequence);
-			String instrumentName = "Standard Kit";
-			loadInstrument(instrumentName);
-			sequencer.start();
+	public void prepare(File fileToPlay) throws InvalidMidiDataException, IOException, MidiUnavailableException {
+		sequence = MidiSystem.getSequence(fileToPlay);
+		sequencer = MidiSystem.getSequencer(true);
+		sequencer.open();
+		sequencer.setSequence(sequence);
+	}
 
-		} catch (InvalidMidiDataException | IOException | MidiUnavailableException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void play() {		
+		sequencer.start();
 	}
 
 	private Instrument loadInstrument(String instrumentName) throws MidiUnavailableException, InvalidMidiDataException {
 		Synthesizer synth = MidiSystem.getSynthesizer();
-
-		synth.getChannels()[0].programChange(2);
+		synth.open();
+//		synth.getChannels()[0].programChange(2);
 		Instrument[] instruments = synth.getAvailableInstruments();
 		Instrument mainInst = null;
 		for (Instrument inst : instruments) {
@@ -51,26 +44,25 @@ public class MidiPlayer {
 			}
 		}
 
-		MidiChannel mainChannel = synth.getChannels()[0]; 
+		MidiChannel mainChannel = synth.getChannels()[0];
 		int program = mainChannel.getProgram();
 
-		
 		if (mainInst == null) {
 			throw new MidiUnavailableException("Could not find instrument: " + mainInst);
 		}
-		
-		mainChannel.programChange(2);
+
+		mainChannel.programChange(0);
 		program = mainChannel.getProgram();
-		
-//		boolean supported = synth.isSoundbankSupported(mainInst.getSoundbank());
-//		if (!supported) {
-//			throw new MidiUnavailableException("Instrument Soundbank not supported: " + mainInst);
-//		}
-//		boolean loaded = synth.loadInstrument(mainInst);
-//		if (!loaded) {
-//			throw new MidiUnavailableException("Could not load instrument: " + mainInst);
-//		}
-		
+
+		boolean supported = synth.isSoundbankSupported(mainInst.getSoundbank());
+		if (!supported) {
+			throw new MidiUnavailableException("Instrument Soundbank not supported: " + mainInst);
+		}
+		boolean loaded = synth.loadInstrument(mainInst);
+		if (!loaded) {
+			throw new MidiUnavailableException("Could not load instrument: " + mainInst);
+		}
+
 		return mainInst;
 	}
 }
