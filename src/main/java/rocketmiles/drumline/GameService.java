@@ -26,6 +26,16 @@ public class GameService {
 		return new File("/beats/").listFiles();
 	}
 
+	public void runFileAsync(String fileName) throws Exception {
+		new Thread(() -> {
+			try {
+				runFile(fileName);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}).start();
+	}
+
 	public void runFile(String fileName) throws Exception {
 
 //		String fileName = "sample1.mid"; //args.getOptionValues("file").get(0);

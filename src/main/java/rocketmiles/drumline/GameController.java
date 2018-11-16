@@ -24,8 +24,9 @@ public class GameController {
 	@RequestMapping("/play")
 	public String play(Map<String, Object> model, @WebParam(name="file") String file) throws Exception {
 		System.out.println("PLAYING!");
-		gameService.runFile(file);
+		gameService.runFileAsync(file);
 		model.put("beats", gameService.getAvailableBeats());
+		model.put("message", "Listen to the beat, and then try to match it");
 		return "game";
 	}
 
