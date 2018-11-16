@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ear Drum</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+</head>
+<body>
+
+<h1>Ear Drum </h1>
+
+<form action="/play" method="GET">
+    <div class="form-group">
+        <select id="file" name="file">
+            <option value="sample1.mid">sample1.mid</option>
+            <option value="sample2.mid">sample2.mid</option>
+        </select>
+        <button type="submit" value="Play!">Play!</button>
+    </div>
+</form>
+
+<p th:text="${message}"/>
+</body>
+</html>
